@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: user       # Usuario para la base de datos
+      POSTGRES_PASSWORD: password # Contraseña del usuario
+      POSTGRES_DB: db_name     # Nombre de la base de datos
+    ports:
+      - "5432:5432"               # Mapea el puerto 5432 en tu máquina local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Volumen para persistencia de datos
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
